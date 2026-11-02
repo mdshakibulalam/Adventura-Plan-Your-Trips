@@ -1,66 +1,75 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Adventura: Plan Your Trips
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Adventura** is a travel planning website for exploring Bangladesh. Travelers can discover tourist spots, find hotels, build their own trip plans with automatic cost calculation, or book ready-made tour packages. An admin panel manages users, packages and payment approvals.
 
-## About Laravel
+> Full details are in [`Adventura_Project_Report.pdf`](Adventura_Project_Report.pdf).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 👤 User Side
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Authentication:** Register with name, email, phone number, address and password (with confirmation), then log in securely.
+- **Homepage:** Shows rotating reviews of tourist spots for visitors and members.
+- **Explore Spots:**
+  - Search by spot name or district
+  - Pop-up information box with picture, district, available transport and description
+  - Comment on spots and view all comments
+- **Trip Planning:**
+  - Select district, spot and hotel
+  - Choose stay dates (the number of nights is counted automatically)
+  - Choose your starting location, transport to the destination and return transport
+  - Total cost is calculated from hotel cost × nights plus transport and return transport costs
+  - View, confirm (pay) or delete your saved plans
+- **Hotels:**
+  - Search hotels and resorts
+  - Comment on hotels
+  - View the exact hotel location on an integrated Google Map
+- **Packages:**
+  - Search ready-made packages by spot
+  - Book a package and pay by bKash (phone number and transaction ID)
+  - Booking stays in a "waiting for confirmation" state until an admin approves it
 
-## Learning Laravel
+### 🛠️ Admin Panel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Separate admin login
+- View all users, update their details (looked up by email) or delete them
+- Add and delete tour packages (hotel, spot, transport, days, price)
+- Review user package bookings and **approve payments**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Layer      | Technology                                      |
+|------------|-------------------------------------------------|
+| Backend    | PHP, Laravel (MVC, Eloquent/Query Builder, Artisan) |
+| Database   | MySQL (managed with Laravel migrations)         |
+| Frontend   | Blade templates, HTML, CSS, JavaScript, jQuery AJAX |
+| Maps       | Google Maps embed                               |
+| Tools      | Composer, npm, Vite                             |
 
-## Laravel Sponsors
+## Project Structure
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+Adventura-Plan-Your-Trips/
+├── app/          # Controllers (Auth, Spots, Hotels, Admin), middleware, models
+├── bootstrap/    # Framework bootstrapping
+├── config/       # Application configuration
+├── database/     # Migrations (spots, districts, hotels, transportations, packages, ...)
+├── public/       # Public assets and entry point
+├── resources/    # Blade views, CSS, JS
+├── routes/       # web.php routes
+├── storage/      # Logs, cache, uploads
+└── tests/        # Automated tests
+```
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Admin Access
 
-## Contributing
+The admin logs in from the same login page using a dedicated admin account stored in the `users` table. Create one directly in the database, then log in with that email and password to reach the admin dashboard.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## How It Works
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. A visitor registers or logs in and lands on the dashboard.
+2. They explore **Spots** and **Hotels**, leave comments and check hotel locations on the map.
+3. In **Trip Plan** they pick a district, spot, hotel, dates and transport, then confirm. The plan appears in their plan list with the total cost, where they can pay or delete it.
+4. In **Package** they search for a spot, book a ready-made package and submit their bKash payment details.
+5. The admin reviews the payment and approves the booking.
